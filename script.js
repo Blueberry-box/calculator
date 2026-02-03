@@ -10,6 +10,7 @@ const btnnum = document.querySelectorAll(".btnnum");
 const displayequation = document.querySelector(".displayequation");
 const btnops = document.querySelectorAll(".btnops");
 const buttonclear = document.querySelector(".buttonclear");
+const buttonbackspace = document.querySelector(".buttonbackspace");
 
 
 function reset () {
@@ -100,7 +101,7 @@ function operate () {
 
 
 btnops.forEach(button => button.addEventListener("click", (event) => {
-
+    
     if (num1.length > 0 && num2.length > 0 && hasNumber(num1) && hasNumber(num2)) {
         operate();
         let op = button.innerText;
@@ -108,6 +109,7 @@ btnops.forEach(button => button.addEventListener("click", (event) => {
     } else if (num1.length > 0 && num2.length === 0 && button.innerText !== "=" && hasNumber(num1)){
         let op = button.innerText;
         operator[0] = op;
+        displayequation.innerText = num1.join("") + " "+ operator[0];
     }
 }));
 
@@ -116,4 +118,24 @@ buttonclear.addEventListener("click", (event) => {
     reset();
     result.innerText = "_";
     displayequation.innerText = "0";
+});
+
+
+buttonbackspace.addEventListener("click", (event) => {
+    console.log(num1.length);
+    console.log(num2.length);
+    console.log(operator.length);
+    if (num1.length > 0 && operator.length > 0 && num2.length > 0) {
+        num2.pop();
+        displayequation.innerText = num1.join("") + " "+ operator[0] + " " + num2.join("");
+        console.log("delete from num2");
+    } else if (num1.length > 0 && operator.length === 0 && num2.length === 0) {
+        if (num1.length === 1) {
+            displayequation.innerText = 0;
+        } else {
+            num1.pop();
+            console.log("delete from num1");
+            displayequation.innerText = num1.join("");
+        }
+    }
 });
