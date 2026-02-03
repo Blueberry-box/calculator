@@ -19,6 +19,20 @@ function reset () {
 }
 
 
+function alreadyHasDot (array) {
+    return array.includes(".");
+}
+
+
+function hasNumber (array) {
+    if ((array.length === 0) || (array.length === 1 && alreadyHasDot(array))) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
 btnnum.forEach(button => button.addEventListener("click", (event) => {
     let number = button.innerText;
     if (calcResult === "Error. Can't divide by 0") {
@@ -31,11 +45,19 @@ btnnum.forEach(button => button.addEventListener("click", (event) => {
     }
 
     if (operator.length === 0) {
-        num1.push(number);
-        displayequation.innerText = num1.join("");
+        if (number === "." && alreadyHasDot(num1)) {
+        } else {
+            num1.push(number);
+            displayequation.innerText = num1.join("");
+        }
+
     } else if (operator[0] !== "=") {
-        num2.push(number);
-        displayequation.innerText = num1.join("") + " "+ operator[0] + " " + num2.join("");
+        if (number === "." && alreadyHasDot(num2)) {
+        } else {
+            num2.push(number);
+            displayequation.innerText = num1.join("") + " "+ operator[0] + " " + num2.join("");
+        }
+
     } else {
         reset();
         num1.push(number);
@@ -78,11 +100,12 @@ function operate () {
 
 
 btnops.forEach(button => button.addEventListener("click", (event) => {
-    if (num1.length > 0 && num2.length > 0) {
+
+    if (num1.length > 0 && num2.length > 0 && hasNumber(num1) && hasNumber(num2)) {
         operate();
         let op = button.innerText;
         operator[0] = op;
-    } else if (num1.length > 0 && num2.length === 0 && button.innerText !== "="){
+    } else if (num1.length > 0 && num2.length === 0 && button.innerText !== "=" && hasNumber(num1)){
         let op = button.innerText;
         operator[0] = op;
     }
