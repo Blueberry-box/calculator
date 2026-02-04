@@ -11,6 +11,48 @@ const displayequation = document.querySelector(".displayequation");
 const btnops = document.querySelectorAll(".btnops");
 const buttonclear = document.querySelector(".buttonclear");
 const buttonbackspace = document.querySelector(".buttonbackspace");
+const body = document.querySelector("body");
+
+body.addEventListener("keydown", (event) => {
+    switch (event.key) {
+        case "0": document.querySelector(".button0").click();
+        break;
+        case "1": document.querySelector(".button1").click();
+        break;
+        case "2": document.querySelector(".button2").click();
+        break;
+        case "3": document.querySelector(".button3").click();
+        break;
+        case "4": document.querySelector(".button4").click();
+        break;
+        case "5": document.querySelector(".button5").click();
+        break;
+        case "6": document.querySelector(".button6").click();
+        break;
+        case "7": document.querySelector(".button7").click();
+        break;
+        case "8": document.querySelector(".button8").click();
+        break;
+        case "9": document.querySelector(".button9").click();
+        break;
+
+        case "+": document.querySelector(".buttonadd").click();
+        break;
+        case "-": document.querySelector(".buttonsubtract").click();
+        break;
+        case "*": document.querySelector(".buttonmultiply").click();
+        break;
+        case "/": document.querySelector(".buttondivide").click();
+        break;
+
+        case "Backspace": document.querySelector(".buttonbackspace").click();
+        break;
+        case ".": document.querySelector(".buttondot").click();
+        break;
+        case "Enter": document.querySelector(".buttonequals").click();
+        break;
+    }
+})
 
 
 function reset () {
@@ -40,7 +82,6 @@ btnnum.forEach(button => button.addEventListener("click", (event) => {
         calcResult = "_";
         reset();
     }
-    console.log(number);
     if (num1.length === 0 && num2.length === 0 && operator.length === 0) {
         result.innerText = "_";
     }
@@ -122,19 +163,14 @@ buttonclear.addEventListener("click", (event) => {
 
 
 buttonbackspace.addEventListener("click", (event) => {
-    console.log(num1.length);
-    console.log(num2.length);
-    console.log(operator.length);
     if (num1.length > 0 && operator.length > 0 && num2.length > 0) {
         num2.pop();
         displayequation.innerText = num1.join("") + " "+ operator[0] + " " + num2.join("");
-        console.log("delete from num2");
     } else if (num1.length > 0 && operator.length === 0 && num2.length === 0) {
         if (num1.length === 1) {
             displayequation.innerText = 0;
         } else {
             num1.pop();
-            console.log("delete from num1");
             displayequation.innerText = num1.join("");
         }
     }
